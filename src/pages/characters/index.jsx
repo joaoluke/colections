@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+import CharacterList from "../../components/character-list";
 import { Link, useParams } from "react-router-dom";
-import { Card } from "antd";
+import styled from "styled-components";
 
-const Characters = () => {
+const Characters = ({ onClick }) => {
   const { page } = useParams();
   const [characters, setCharacters] = useState([]);
+
+  const handleClick = (newCharacter) => {
+    onClick((prevState) => [...prevState, newCharacter]);
+  };
 
   useEffect(() => {
     fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
@@ -13,23 +18,28 @@ const Characters = () => {
   }, [page]);
 
   return (
-    <div>
-      <div>
-        <Link to={`/rick-and-morty/${page - 1}`}>Anterior</Link>
-        <Link to={`/rick-and-morty/${parseInt(page) + 1}`}>Próximo</Link>
-      </div>
-      {characters.map(({ name, image, species }, key) => (
-        <Card
-          key={key}
-          hoverable
-          style={{ width: 240 }}
-          cover={<img alt="example" src={image} />}
-        >
-          <Card.Meta title={name} description={species} />
-        </Card>
-      ))}
-    </div>
+    <CharacterList
+      onClick={handleClick}
+      characters={characters}
+      header={
+        <StyledControl>
+          <Link to={`/rick-and-morty/${page - 1}`}> {" < "}Anterior</Link>
+          {page}
+          <Link to={`/rick-and-morty/${parseInt(page) + 1}`}>
+            Próximo{" > "}
+          </Link>
+        </StyledControl>
+      }
+    />
   );
 };
 
 export default Characters;
+
+const StyledControl = styled.div`
+  padding: 10px;
+  max-width: 500px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
