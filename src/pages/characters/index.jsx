@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CharacterList from "../../components/character-list";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Characters = ({ onClick }) => {
   const { page } = useParams();
+  const history = useHistory();
   const [characters, setCharacters] = useState([]);
 
   const handleClick = (newCharacter) => {
@@ -12,10 +13,12 @@ const Characters = ({ onClick }) => {
   };
 
   useEffect(() => {
+    if (page < 1) return history.push("/rick-and-morty/1");
+
     fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then((res) => res.json())
-      .then(({ results }) => setCharacters(results));
-  }, [page]);
+      .then(({ results }) => setCharacters(results || []));
+  }, [history, page]);
 
   return (
     <CharacterList

@@ -7,16 +7,17 @@ const CharacterList = ({ characters, header, onClick = () => {} }) => {
     <StyledCharacter>
       <StyledHeader>{header}</StyledHeader>
       <StyledList>
-        {characters.map(({ name, image, species }, key) => (
-          <StyledCard
-            key={key}
-            hoverable
-            onClick={() => onClick({ name, image, species })}
-            cover={<img alt="example" src={image} />}
-          >
-            <Card.Meta title={name} description={species} />
-          </StyledCard>
-        ))}
+        {characters &&
+          characters.map(({ name, image, species }, key) => (
+            <StyledCard
+              key={key}
+              hoverable
+              onClick={() => onClick({ name, image, species })}
+              cover={<img alt="example" src={image} />}
+            >
+              <Card.Meta title={name} description={species} />
+            </StyledCard>
+          ))}
       </StyledList>
     </StyledCharacter>
   );
