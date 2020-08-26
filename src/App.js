@@ -3,6 +3,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import { Home, Characters } from "./pages/";
 import { MdCollections } from "react-icons/md";
 import { BsPeopleFill } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 import styled from "styled-components";
 import "./App.css";
@@ -13,18 +14,24 @@ function App() {
   return (
     <div className="App">
       <TopBar>
-        <StyledLink to="/">
-          <MdCollections />
-        </StyledLink>
-        <StyledLink to="/rick-and-morty/1">
-          <BsPeopleFill />
-        </StyledLink>
+        <TobBarLinks>
+          <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+            <StyledLink to="/">
+              <MdCollections />
+            </StyledLink>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+            <StyledLink to="/rick-and-morty/1">
+              <BsPeopleFill />
+            </StyledLink>
+          </motion.div>
+        </TobBarLinks>
       </TopBar>
 
       <Body>
         <Switch>
           <Route path="/rick-and-morty/:page">
-            <Characters setCharacters={setCharacters} />
+            <Characters setCharacters={setCharacters} characters={characters} />
           </Route>
           <Route path="/">
             <Home characters={characters} setCharacters={setCharacters} />
@@ -36,6 +43,12 @@ function App() {
 }
 
 export default App;
+
+const TobBarLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 
 const TopBar = styled.div`
   background-color: white;
