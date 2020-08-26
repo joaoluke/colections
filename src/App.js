@@ -24,10 +24,10 @@ function App() {
       <Body>
         <Switch>
           <Route path="/rick-and-morty/:page">
-            <Characters onClick={setCharacters} />
+            <Characters setCharacters={setCharacters} />
           </Route>
           <Route path="/">
-            <Home characters={characters} />
+            <Home characters={characters} setCharacters={setCharacters} />
           </Route>
         </Switch>
       </Body>

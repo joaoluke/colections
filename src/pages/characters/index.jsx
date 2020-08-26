@@ -3,13 +3,13 @@ import CharacterList from "../../components/character-list";
 import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-const Characters = ({ onClick }) => {
+const Characters = ({ setCharacters }) => {
   const { page } = useParams();
   const history = useHistory();
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharactersAPI] = useState([]);
 
-  const handleClick = (newCharacter) => {
-    onClick((prevState) => [...prevState, newCharacter]);
+  const handleOnSelect = (newCharacter) => {
+    setCharacters((prevState) => [...prevState, newCharacter]);
   };
 
   useEffect(() => {
@@ -17,12 +17,12 @@ const Characters = ({ onClick }) => {
 
     fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then((res) => res.json())
-      .then(({ results }) => setCharacters(results || []));
-  }, [history, page]);
+      .then(({ results }) => setCharactersAPI(results || []));
+  }, [history, page, setCharacters]);
 
   return (
     <CharacterList
-      onClick={handleClick}
+      onSelect={handleOnSelect}
       characters={characters}
       header={
         <StyledControl>

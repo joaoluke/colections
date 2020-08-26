@@ -1,10 +1,11 @@
 import React from "react";
 import { Card } from "antd";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const CharacterList = ({ characters, header, onClick = () => {} }) => {
+const CharacterList = ({ characters, header, onSelect = () => {} }) => {
   return (
-    <StyledCharacter>
+    <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>
       <StyledList>
         {characters &&
@@ -12,7 +13,9 @@ const CharacterList = ({ characters, header, onClick = () => {} }) => {
             <StyledCard
               key={key}
               hoverable
-              onClick={() => onClick({ name, image, species })}
+              onClick={() => {
+                onSelect({ name, image, species });
+              }}
               cover={<img alt="example" src={image} />}
             >
               <Card.Meta title={name} description={species} />
@@ -31,7 +34,7 @@ const StyledHeader = styled.div`
   width: 100%;
 `;
 
-const StyledCharacter = styled.div`
+const StyledCharacter = styled(motion.div)`
   display: flex;
   padding: 20px;
   flex-direction: column;
