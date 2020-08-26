@@ -10,16 +10,18 @@ const CharacterList = ({ characters, header, onSelect = () => {} }) => {
       <StyledList>
         {characters &&
           characters.map(({ name, image, species }, key) => (
-            <StyledCard
-              key={key}
-              hoverable
-              onClick={() => {
-                onSelect({ name, image, species });
-              }}
-              cover={<img alt="example" src={image} />}
-            >
-              <Card.Meta title={name} description={species} />
-            </StyledCard>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>
+              <StyledCard
+                key={key}
+                hoverable
+                onClick={() => {
+                  onSelect({ name, image, species });
+                }}
+                cover={<img alt="example" src={image} />}
+              >
+                <Card.Meta title={name} description={species} />
+              </StyledCard>
+            </motion.div>
           ))}
       </StyledList>
     </StyledCharacter>
