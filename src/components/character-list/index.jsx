@@ -10,9 +10,12 @@ const CharacterList = ({ characters, header, onSelect = () => {} }) => {
       <StyledList>
         {characters &&
           characters.map(({ name, image, species }, key) => (
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>
+            <motion.div
+              key={key}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}
+            >
               <StyledCard
-                key={key}
                 hoverable
                 onClick={() => {
                   onSelect({ name, image, species });

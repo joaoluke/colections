@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import { Home, Characters } from "./pages/";
+import { Home, Characters, Chart } from "./pages/";
 import { MdCollections } from "react-icons/md";
 import { BsPeopleFill } from "react-icons/bs";
+import { AiFillPieChart } from "react-icons/ai";
 import { motion } from "framer-motion";
 
 import styled from "styled-components";
@@ -25,11 +26,19 @@ function App() {
               <BsPeopleFill />
             </StyledLink>
           </motion.div>
+          <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+            <StyledLink to="/pie">
+              <AiFillPieChart />
+            </StyledLink>
+          </motion.div>
         </TobBarLinks>
       </TopBar>
 
       <Body>
         <Switch>
+          <Route path="/pie">
+            <Chart characters={characters} />
+          </Route>
           <Route path="/rick-and-morty/:page">
             <Characters setCharacters={setCharacters} characters={characters} />
           </Route>
