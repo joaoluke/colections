@@ -6,6 +6,7 @@ import { BsPeopleFill } from "react-icons/bs";
 import { AiFillPieChart } from "react-icons/ai";
 import { motion } from "framer-motion";
 
+
 import styled from "styled-components";
 import "./App.css";
 
@@ -33,10 +34,10 @@ function App() {
           </motion.div>
         </TobBarLinks>
       </TopBar>
-
+      
       <Body>
         <Switch>
-          <Route path="/pie">
+        <Route path="/pie">
             <Chart characters={characters} />
           </Route>
           <Route path="/rick-and-morty/:page">

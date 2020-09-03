@@ -3,12 +3,14 @@ import { Pie } from "react-chartjs-2";
 
 const Chart = ({ characters }) => {
   const charactersData = characters.reduce((current, { species }) => {
-    current[species] ? (current[species] += 1) : (current[species] = 1);
+      current[species] ? 
+      (current[species] += 1) :
+      (current[species] = 1);
     return current;
   }, {});
 
   const data = {
-    labels: Object.keys(charactersData),
+    labels: ["Rick and Morty", "Pokemon"],
     datasets: [
       {
         data: Object.values(charactersData),
